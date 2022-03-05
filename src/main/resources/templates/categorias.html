@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Catalogo Musical</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+
+<section>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+	<a th:href="@{/addCategoria}" class="btn btn-primary" role="button">Adicionar</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="categoria : ${categorias}">
+                <th scope="row" th:text="${categoria.id}"></th>
+                <td th:text="${categoria.nome}"></td>
+                <td>
+                	<div class="col-sm-10">
+                		<a th:href="${(#mvc.url('CC#getFormCategoriaEdit').arg(0, categoria.id)).build()}"
+                           class="btn btn-primary active float-right " role="button" aria-pressed="true">Editar</a>
+                    </div>       
+                </td>
+                <td>
+                	<div class="col-sm-2">
+            			<a th:href="@{/delCategoria/{id}(id=${categoria.id})}" class="btn btn-danger float-right"
+                           role="button">Remover</a>
+            		</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Categoria navigation" th:if="${categorias.totalPages > 0}">
+            <ul class="pagination">
+                <li th:each="pageNumber : ${pageNumbers}"
+                    th:classappend="${(pageNumber==categorias.number + 1 ? 'active page-item': 'page-item')}">
+                    <a class="page-link" th:href="@{/categorias(size=${categorias.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+</body>
+</html>
