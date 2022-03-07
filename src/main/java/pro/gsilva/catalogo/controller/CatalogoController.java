@@ -1,6 +1,7 @@
 package pro.gsilva.catalogo.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -79,8 +80,10 @@ public class CatalogoController {
 
     @GetMapping("/musicas/pesquisar")
     public ModelAndView pesquisar(@RequestParam("titulo") String titulo) {
+    	List<Musica> musicas = new ArrayList<>();
         ModelAndView mv = new ModelAndView("musicas");
-        List<Musica> musicas = catalogoService.findByTitulo(titulo);
+        musicas.addAll(catalogoService.findByTitulo(titulo));
+        musicas.addAll(catalogoService.findByCategoria(titulo));
         mv.addObject("musicas", musicas);
         return mv;
     }

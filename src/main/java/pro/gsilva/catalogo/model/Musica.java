@@ -35,7 +35,6 @@ public class Musica {
     private LocalDate data;
 
     @NotBlank
-    @Lob
     private String letra;
     
     @ManyToOne

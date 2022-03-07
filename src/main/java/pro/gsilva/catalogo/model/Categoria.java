@@ -20,7 +20,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(length = 30, columnDefinition="TEXT")
+    @Column(length = 30)
     @NotBlank
     private String nome;
     
